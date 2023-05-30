@@ -31,6 +31,7 @@
                                 <p class="text-white m-0 pt-1">Writers: {{$movie->writers}}</p>
                             </div>
                             @endif
+                            <a class="btn btn-primary" href="{{route('movies.edit', $movie->id)}}" role="button">Edit</a>
                         </div>
                     </div>
                 </div>

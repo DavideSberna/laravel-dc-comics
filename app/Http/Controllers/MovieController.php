@@ -110,9 +110,9 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Movie $movie)
     {
-        //
+        return view('movies.edit', compact('movie'));
     }
 
     /**
@@ -122,11 +122,34 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, Movie $movie)
+{
+    $form_data = $request->all();
+    
+    $movie->title = $form_data['title'];
+
+    if (is_null($form_data['thumb'])) {
+        $randomImage = $this->getRandomImage();
+        if ($randomImage) {
+            $movie->thumb = $randomImage;
+        }
+    } else {
+        $movie->thumb = $form_data['thumb'];
     }
 
+    if (is_null($form_data['description'])) {
+        $randomDescription = $this->getRandomDescription();
+        if ($randomDescription) {
+            $movie->description = $randomDescription;
+        }
+    } else {
+        $movie->description = $form_data['description'];
+    }
+
+    $movie->save();
+
+    return redirect()->route('movies.show', $movie->id);
+}
     /**
      * Remove the specified resource from storage.
      *
