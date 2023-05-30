@@ -32,6 +32,11 @@
                             </div>
                             @endif
                             <a class="btn btn-primary" href="{{route('movies.edit', $movie->id)}}" role="button">Edit</a>
+                            <form action="{{route('movies.destroy', $movie->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input id="delete" type="submit" class="btn btn-danger" value="Delete">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -49,6 +54,8 @@
             </div>
         </div>
     </section>
+
+     
         
      
 @endsection
