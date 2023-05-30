@@ -66,6 +66,33 @@ header{
 
 }
 
+
+
+.carousel-item div{
+    width: 300px;
+    margin: 0 auto;
+}
+
+
+.prev-btn,
+.next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: none;
+    cursor: pointer;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
 .current-series{
     position: absolute;
     height: 50px;
