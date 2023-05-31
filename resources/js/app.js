@@ -1,6 +1,7 @@
 import './bootstrap';
 import '~resources/scss/app.scss';
 import * as bootstrap from 'bootstrap';
+import { random } from 'lodash';
 import.meta.glob([
     '../img/**'
 ])
@@ -20,7 +21,49 @@ const deleteSubmitButtons = document.querySelectorAll('.delete');
 
 
 
-    
+
+
+
+
+
+const error = document.querySelector('.error');
+const randomMessage = document.querySelector('.random-message');
+const btnMessage = document.querySelectorAll('.btn-error-message')
+
+
+if(error){
+    randomMessage.classList.remove('d-none')
+    randomMessage.classList.add('d-block')
+}
+
+
+
+btnMessage.forEach((button) => {
+    button.addEventListener('click', () => {
+        
+      if (button.name == 'si') {
+        let randomNumber = Math.floor(Math.random() * 20)
+        let numberSeries = 'vol-'
+        let randomString = numberSeries + randomNumber.toString()
+        console.log(randomString)
+        //chiamata AJAX
+        fetch('/movies/random-title')
+            .then(response => response.json())
+            .then(data => {
+                //let dataJson = data + randomString;
+                //console.log(dataJson)
+                console.log(data)
+                document.querySelector('.titleInput').value = data.randomTitle + randomString
+            })
+        } 
+    });
+});
+
+
+
+ 
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const prevButton = document.querySelector('.prev-btn');
     const nextButton = document.querySelector('.next-btn');

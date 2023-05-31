@@ -42,9 +42,6 @@ class MovieController extends Controller
     public function store(StoreMovieRequest $request)
     {
 
-        
-
-
         $form_data = $request->validated();
         $newMovie = new Movie();
         $newMovie->title = $form_data['title'];
@@ -75,24 +72,7 @@ class MovieController extends Controller
         return redirect()->route('movies.show', $newMovie->id);
     }
 
-    public function getRandomImage()
-    {
-        $randomImage = Movie::inRandomOrder()->select('thumb')->first();
-
-        if ($randomImage) {
-            return $randomImage->thumb;
-        }
-
-    }
-    public function getRandomDescription()
-    {
-        $randomDescription = Movie::inRandomOrder()->select('description')->first();
-
-        if ($randomDescription) {
-            return $randomDescription->description;
-        }
-
-    }
+    
 
     /**
      * Display the specified resource.
@@ -149,6 +129,7 @@ class MovieController extends Controller
 
         $movie->save();
 
+
         return redirect()->route('movies.show', $movie->id);
     }
     /**
@@ -162,10 +143,31 @@ class MovieController extends Controller
         $movie->delete();
         return redirect()->route('movies.index');
     }
-    //private function validation($data){
-    //    $validator = Validator::make($data, [
-    //        'title' => 'required|unique:movies',
-    //    ])->validate();
-    //    return $validator;
-    //}
+
+    public function getRandomImage()
+    {
+        $randomImage = Movie::inRandomOrder()->select('thumb')->first();
+
+        if ($randomImage) {
+            return $randomImage->thumb;
+        }
+
+    }
+    public function getRandomDescription()
+    {
+        $randomDescription = Movie::inRandomOrder()->select('description')->first();
+
+        if ($randomDescription) {
+            return $randomDescription->description;
+        }
+
+    }
+
+    public function getRandomTitle()
+    {
+        $randomTitle = Movie::inRandomOrder()->value('title');
+
+        return response()->json(['randomTitle' => $randomTitle]);
+    }
+     
 }

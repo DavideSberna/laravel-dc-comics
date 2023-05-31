@@ -18,4 +18,5 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('movies/random-title', [MovieController::class, 'getRandomTitle'])->name('get-random-title');
 Route::resource('movies', MovieController::class);

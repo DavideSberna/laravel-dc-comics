@@ -24,7 +24,9 @@ class StoreMovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:movies,title|min:2|max:100',   
+            'title' => 'required|unique:movies,title|min:2|max:100',
+            'thumb' => 'nullable',
+            'description' => 'nullable',   
         ];
     }
     public function messages()

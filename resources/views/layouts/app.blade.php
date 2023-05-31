@@ -80,23 +80,7 @@ $footer = [
         ],
     ];
 
-$footerIcon = [
-    [
-        "image" => 'img/footer-facebook.png',
-    ],
-    [
-        "image" => 'img/footer-periscope.png',
-    ],
-    [
-        "image" => 'img/footer-pinterest.png',
-    ],
-    [
-        "image" => 'img/footer-twitter.png',
-    ],
-    [
-        "image" => 'img/footer-youtube.png',
-    ],
-];
+
 
 ?>
 
@@ -200,11 +184,11 @@ $footerIcon = [
                             <h4 class="text-uppercase text-primary">Follow us</h4>
                           </div>
                             <ul class="d-flex align-items-center m-0 p-0">
-                                @foreach($footerIcon as $item)
+                                 
                                     <li class="list-group-item">
-                                        <img class="d-block ps-2" src="{{ $item['image'] }}" alt="">
+                                        
                                     </li>
-                                @endforeach
+                                
                             </ul>
                        </div>
                     </div>

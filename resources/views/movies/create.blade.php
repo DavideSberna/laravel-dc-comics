@@ -11,15 +11,22 @@
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <li class="error">{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
                 @endif
+                <div class="random-message d-none text-center">
+                    <h4>Vuoi generare un titolo random?</h4>
+                    <div class="mt-3 mb-5">
+                        <button type="button" name="si" class="btn btn-primary btn-error-message">Si grazie</button>
+                        <button type="button" name="no" class="btn btn-secondary btn-error-message">Non mi interessa</button>
+                    </div>
+                </div>
         
                 <div class="mb-3">
                     <label for="title" class="form-label">Titolo</label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" aria-describedby="titleHelp" value="{{old('title')}}">
+                    <input type="text" class="form-control titleInput @error('title') is-invalid @enderror" name="title" id="title" aria-describedby="titleHelp" value="{{old('title')}}">
                     <div id="titleHelp" class="form-text">Inserisci un titolo</div>
                     @error('title')
                     {{$message}}
