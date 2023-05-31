@@ -10,19 +10,22 @@
                 @method('PUT')
 
                 @if ($errors->any())
-        <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-        </div>
-        @endif
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
         
                 <div class="mb-3">
                     <label for="title" class="form-label">Titolo</label>
-                    <input type="text" class="form-control" name="title" id="title" aria-describedby="titleHelp" value="{{$movie->title}}">
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" aria-describedby="titleHelp" value="{{$movie->title}}">
                     <div id="titleHelp" class="form-text">Inserisci un titolo</div>
+                    @error('title')
+                    {{$message}}
+                    @enderror
                 </div>
                  
                 <div class="mb-3">

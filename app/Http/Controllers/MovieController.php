@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreMovieRequest;
+use App\Http\Requests\UpdateMovieRequest;
 
 
 class MovieController extends Controller
@@ -36,15 +39,13 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMovieRequest $request)
     {
 
-        $request->validate([
-            'title' => 'required',
-        ]);
+        
 
 
-        $form_data = $request->all();
+        $form_data = $request->validated();
         $newMovie = new Movie();
         $newMovie->title = $form_data['title'];
     
@@ -122,34 +123,34 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
-{
-    $form_data = $request->all();
-    
-    $movie->title = $form_data['title'];
+    public function update(UpdateMovieRequest $request, Movie $movie)
+    {
+        $form_data = $request->validated();
+        
+        $movie->title = $form_data['title'];
 
-    if (is_null($form_data['thumb'])) {
-        $randomImage = $this->getRandomImage();
-        if ($randomImage) {
-            $movie->thumb = $randomImage;
+        if (is_null($form_data['thumb'])) {
+            $randomImage = $this->getRandomImage();
+            if ($randomImage) {
+                $movie->thumb = $randomImage;
+            }
+        } else {
+            $movie->thumb = $form_data['thumb'];
         }
-    } else {
-        $movie->thumb = $form_data['thumb'];
-    }
 
-    if (is_null($form_data['description'])) {
-        $randomDescription = $this->getRandomDescription();
-        if ($randomDescription) {
-            $movie->description = $randomDescription;
+        if (is_null($form_data['description'])) {
+            $randomDescription = $this->getRandomDescription();
+            if ($randomDescription) {
+                $movie->description = $randomDescription;
+            }
+        } else {
+            $movie->description = $form_data['description'];
         }
-    } else {
-        $movie->description = $form_data['description'];
+
+        $movie->save();
+
+        return redirect()->route('movies.show', $movie->id);
     }
-
-    $movie->save();
-
-    return redirect()->route('movies.show', $movie->id);
-}
     /**
      * Remove the specified resource from storage.
      *
@@ -161,4 +162,10 @@ class MovieController extends Controller
         $movie->delete();
         return redirect()->route('movies.index');
     }
+    //private function validation($data){
+    //    $validator = Validator::make($data, [
+    //        'title' => 'required|unique:movies',
+    //    ])->validate();
+    //    return $validator;
+    //}
 }
